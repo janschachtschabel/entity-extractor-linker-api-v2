@@ -145,8 +145,6 @@ We welcome contributions! Please follow our development workflow for details.
 
 This project is licensed under the Apache 2.0 License - see the [LICENSE](LICENSE) file for details.
 
-## Test
-
 ## 🆘 Support
 
 - **API Documentation**: [Interactive Swagger UI](http://localhost:8000/docs) (when running locally)

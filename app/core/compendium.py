@@ -228,7 +228,7 @@ def generate_compendium_legacy(entities: list[dict[str, Any]]) -> str:
         label = ent.get("label")
         wiki_de = ent.get("wiki_url_de")
         wiki_en = ent.get("wiki_url_en")
-        md_line = f"* **{label}** – [DE]({wiki_de}) | [EN]({wiki_en})"
+        md_line = f"* **{label}** - [DE]({wiki_de}) | [EN]({wiki_en})"
         md_lines.append(md_line)
 
     md_lines.append("\n## Referenzen\n")

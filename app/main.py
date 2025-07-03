@@ -102,11 +102,17 @@ def create_app() -> FastAPI:
                             {
                                 "type": "json_invalid",
                                 "loc": error.get('loc', ['body']),
-                                "msg": "Invalid JSON: Request contains invalid control characters. Please ensure your text contains only printable characters.",
+                                "msg": (
+                                    "Invalid JSON: Request contains invalid control characters. "
+                                    "Please ensure your text contains only printable characters."
+                                ),
                                 "input": "<request body contains invalid characters>",
                                 "ctx": {
                                     "error": "Invalid control character detected",
-                                    "suggestion": "Remove or replace control characters (\x00-\x1F except \t, \n, \r) from your input text"
+                                    "suggestion": (
+                                        "Remove or replace control characters (\x00-\x1F except \t, \n, \r) "
+                                        "from your input text"
+                                    )
                                 }
                             }
                         ]

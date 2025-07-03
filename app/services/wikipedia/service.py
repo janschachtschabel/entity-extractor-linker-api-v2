@@ -130,7 +130,9 @@ class WikipediaService:
             context.wikipedia_data = self.data_processor.enhance_with_prompt_data(
                 context.wikipedia_data, prompt_metadata
             )
-            logger.debug(f"[process_entity] After enhance_with_prompt_data (error) - wikipedia_data: {context.wikipedia_data}")
+            logger.debug(
+                f"[process_entity] After enhance_with_prompt_data (error) - wikipedia_data: {context.wikipedia_data}"
+            )
 
         # Final step: Generate DBpedia URI using the best available data
         context.wikipedia_data = self.data_processor.finalize_dbpedia_uri(context.wikipedia_data)

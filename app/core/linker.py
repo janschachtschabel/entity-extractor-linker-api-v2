@@ -46,7 +46,9 @@ async def process_text_async(
 
     try:
         # Step 1: Extract or generate entities using OpenAI
-        contexts = await _extract_or_generate_entities(text, mode, max_entities, language, educational_mode, allowed_entity_types)
+        contexts = await _extract_or_generate_entities(
+            text, mode, max_entities, language, educational_mode, allowed_entity_types
+        )
         stats["entities_extracted"] = len(contexts)
         logger.info(f"Extracted {len(contexts)} entities")
 
@@ -106,13 +108,23 @@ async def process_text_async(
 
 
 async def _extract_or_generate_entities(
-    text: str, mode: str, max_entities: int, language: str, educational_mode: bool, allowed_entity_types: str | list[str]
+    text: str,
+    mode: str,
+    max_entities: int,
+    language: str,
+    educational_mode: bool,
+    allowed_entity_types: str | list[str],
 ) -> list[EntityProcessingContext]:
     """Extract or generate entities based on mode."""
     raw_entities: list[tuple[str, str, dict[str, Any]]] = []
 
     if mode == "extract":
-        raw_entities = extract_entities(text, max_entities=max_entities, language=language, allowed_entity_types=allowed_entity_types)
+        raw_entities = extract_entities(
+            text,
+            max_entities=max_entities,
+            language=language,
+            allowed_entity_types=allowed_entity_types,
+        )
     elif mode == "generate":
         raw_entities = generate_entities(
             text,
