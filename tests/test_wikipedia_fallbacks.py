@@ -73,7 +73,9 @@ class TestWikipediaFallbackStrategies:
             abstract_en="Test abstract",
             wikidata_id=None
         )
-        assert fallback_strategies.is_page_complete(page) is False
+        # Page is now considered complete even without Wikidata ID
+        # as long as it has title and abstract
+        assert fallback_strategies.is_page_complete(page) is True
 
     def test_is_page_complete_none_page(self, fallback_strategies):
         """Test page completeness check with None page."""

@@ -112,7 +112,10 @@ def _ensure_ready() -> None:
     if not settings.OPENAI_API_KEY:
         raise RuntimeError("OPENAI_API_KEY not set in environment")
     if openai is None:
-        openai = OpenAI(api_key=settings.OPENAI_API_KEY)
+        openai = OpenAI(
+            api_key=settings.OPENAI_API_KEY,
+            base_url=settings.OPENAI_BASE_URL if settings.OPENAI_BASE_URL else None
+        )
 
 
 # ---------------------------------------------------------------------------

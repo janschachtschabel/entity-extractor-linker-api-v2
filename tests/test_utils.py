@@ -41,7 +41,7 @@ def test_translate() -> None:
     with patch('app.core.utils._translate_text') as mock_translate:
         mock_translate.return_value = "Hello"
         resp = client.post("/api/v1/utils/translate", json={
-            "text": "Hallo", "target_language": "en"
+            "text": "Hallo", "target_lang": "en"
         })
         assert resp.status_code == 200
         assert resp.json()["translation"] == "Hello"
@@ -49,7 +49,7 @@ def test_translate() -> None:
     # Test with fallback
     with patch('app.core.utils._translate_text', side_effect=Exception("API Error")):
         resp = client.post("/api/v1/utils/translate", json={
-            "text": "Hallo", "target_language": "en"
+            "text": "Hallo", "target_lang": "en"
         })
         assert resp.status_code == 200
         # Should return fallback format when translation fails

@@ -7,14 +7,14 @@ Lifespan handler prepares global resources (e.g. OpenAI client) in future.
 from collections.abc import AsyncGenerator
 from contextlib import asynccontextmanager
 from datetime import datetime
+import json
 import os
 import sys
 
-from fastapi import APIRouter, FastAPI, Request, HTTPException
+from fastapi import APIRouter, FastAPI, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 from loguru import logger
-import json
 
 from app.core.settings import settings
 
@@ -68,7 +68,7 @@ def create_app() -> FastAPI:
         redoc_url="/redoc",
         lifespan=lifespan,
     )
-    
+
     # Add global exception handler for JSON parsing errors
     @app.exception_handler(json.JSONDecodeError)
     async def json_decode_error_handler(request: Request, exc: json.JSONDecodeError):
@@ -87,7 +87,7 @@ def create_app() -> FastAPI:
                 ]
             }
         )
-    
+
     @app.exception_handler(RequestValidationError)
     async def validation_exception_handler(request: Request, exc: RequestValidationError):
         """Enhanced validation error handler with better JSON error messages."""
@@ -112,7 +112,7 @@ def create_app() -> FastAPI:
                         ]
                     }
                 )
-        
+
         # Default validation error handling
         return JSONResponse(
             status_code=422,

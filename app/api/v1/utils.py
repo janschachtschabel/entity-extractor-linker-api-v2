@@ -91,18 +91,18 @@ async def split_text_endpoint(payload: SplitRequest) -> SplitResponse:
     # Validate overlap constraint
     if payload.overlap >= payload.chunk_size:
         raise HTTPException(status_code=400, detail="overlap must be less than chunk_size")
-    
+
     # Clean text from potential control characters that might cause JSON issues
     try:
         # Pre-clean the text to remove any problematic characters
         cleaned_text = ''.join(char if char.isprintable() or char in '\t\n\r' else ' ' for char in payload.text)
         cleaned_text = ' '.join(cleaned_text.split())  # Normalize whitespace
     except Exception as e:
-        raise HTTPException(status_code=400, detail=f"Invalid text content: {str(e)}")
+        raise HTTPException(status_code=400, detail=f"Invalid text content: {e!s}") from e
 
     # Convert split_by parameter to preserve_sentences
     preserve_sentences = payload.split_by == "sentence"
-    
+
     try:
         chunks = utils_core.split_text(
             cleaned_text,
@@ -112,7 +112,7 @@ async def split_text_endpoint(payload: SplitRequest) -> SplitResponse:
         )
         return SplitResponse(chunks=chunks)
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Text splitting failed: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Text splitting failed: {e!s}") from e
 
 
 # --- Synonyms -------------------------------------------------------------
