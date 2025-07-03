@@ -7,12 +7,13 @@ so no additional HTTP client dependency is required.
 import pathlib
 import sys
 
+# Add project root to path for test imports
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
+
+# Imports after sys.path modification (required for test files)
 from fastapi.testclient import TestClient
 
 from app.main import app
-
-sys.path.append(str(pathlib.Path(__file__).resolve().parents[2]))
-sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
 
 client = TestClient(app)
 

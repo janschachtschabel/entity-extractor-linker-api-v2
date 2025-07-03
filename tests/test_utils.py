@@ -4,8 +4,10 @@ import pathlib
 import sys
 from unittest.mock import patch
 
-sys.path.append(str(pathlib.Path(__file__).resolve().parents[2]))
+# Add project root to path for test imports
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
 
+# Imports after sys.path modification (required for test files)
 from fastapi.testclient import TestClient
 
 from app.main import app

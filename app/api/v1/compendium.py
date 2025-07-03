@@ -31,11 +31,6 @@ class CompendiumConfig(BaseModel):
     educational_mode: bool = Field(default=True, description="Use educational aspects for structuring")
     language: str = Field(default="de", description="Output language (de/en)")
 
-    class Config:
-        """Pydantic model configuration."""
-
-        pass
-
 
 class CompendiumRequest(BaseModel):
     """Request payload for compendium generation endpoint."""
@@ -50,11 +45,6 @@ class CompendiumRequest(BaseModel):
         ),
     )
     config: CompendiumConfig = Field(default_factory=CompendiumConfig, description="Compendium configuration")
-
-    class Config:
-        """Pydantic model configuration."""
-
-        pass
 
 
 class CompendiumResponse(BaseModel):

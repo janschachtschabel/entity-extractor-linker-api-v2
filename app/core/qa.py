@@ -70,7 +70,7 @@ def generate_qa_pairs(
     except Exception as exc:  # pylint: disable=broad-except
         logger.error(f"[generate_qa_pairs] OpenAI QA generation failed: {type(exc).__name__}: {exc}")
         # Re-raise the exception instead of using fallback
-        if isinstance(exc, RuntimeError | ValueError):
+        if isinstance(exc, (RuntimeError, ValueError)):
             raise
         raise RuntimeError(f"QA generation failed: {exc}") from exc
 
@@ -216,7 +216,7 @@ def generate_qa_pairs_with_levels(
 
     except Exception as exc:
         logger.error(f"[generate_qa_pairs_with_levels] OpenAI QA generation failed: {type(exc).__name__}: {exc}")
-        if isinstance(exc, RuntimeError | ValueError):
+        if isinstance(exc, (RuntimeError, ValueError)):
             raise
         raise RuntimeError(f"Educational levels QA generation failed: {exc}") from exc
 

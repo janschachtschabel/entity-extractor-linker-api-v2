@@ -217,8 +217,8 @@ class WikipediaDataProcessor:
             "thumbnail_url": "",
             "categories": [],
             "internal_links": [],
-            "lat": None,
-            "lon": None,
+            "geo_lat": None,
+            "geo_lon": None,
             "infobox_type": "",
             "dbpedia_uri": "",  # No DBpedia URI available
             "status": status,

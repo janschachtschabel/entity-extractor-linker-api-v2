@@ -91,6 +91,7 @@ ignore = [
     "D213", # Multi-line docstring summary should start at the second line
     "S101", # Use of assert detected (allow in tests)
     "T201", # print found (allow for debugging)
+    "UP038", # Use X | Y in isinstance call instead of (X, Y) - causes runtime errors
 ]
 
 [tool.ruff.lint.pydocstyle]
