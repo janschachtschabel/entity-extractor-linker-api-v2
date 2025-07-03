@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - OPENAI_MODEL=${OPENAI_MODEL:-gpt-4o-mini}
+      - OPENAI_TIMEOUT=${OPENAI_TIMEOUT:-120}
+      - WIKIPEDIA_TIMEOUT=${WIKIPEDIA_TIMEOUT:-30}
+      - WIKIPEDIA_MAX_CONCURRENCY=${WIKIPEDIA_MAX_CONCURRENCY:-5}
+      - RATE_LIMIT=${RATE_LIMIT:-100}
+      - RATE_WINDOW=${RATE_WINDOW:-60}
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+      - CACHE_DIR=/app/cache
+    volumes:
+      - ./cache:/app/cache
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Optional: Redis for caching (future feature)
+  # redis:
+  #   image: redis:7-alpine
+  #   ports:
+  #     - "6379:6379"
+  #   restart: unless-stopped

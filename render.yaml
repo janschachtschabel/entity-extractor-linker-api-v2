@@ -1,0 +1,40 @@
+services:
+  - type: web
+    name: entityextractorbatch
+    runtime: docker
+    plan: starter
+    region: frankfurt
+    branch: main
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    envVars:
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: ENVIRONMENT
+        value: production
+      - key: LOG_LEVEL
+        value: INFO
+      - key: HOST
+        value: 0.0.0.0
+      - key: PORT
+        value: 8000
+      - key: DBPEDIA_USE_DE
+        value: "false"
+      - key: DBPEDIA_TIMEOUT
+        value: 30
+      - key: WIKIPEDIA_TIMEOUT
+        value: 20
+      - key: OPENAI_TIMEOUT
+        value: 60
+    healthCheckPath: /health
+    autoDeploy: true
+    buildFilter:
+      paths:
+        - app/**
+        - requirements.txt
+        - Dockerfile
+        - pyproject.toml
+    disk:
+      name: entityextractorbatch-disk
+      mountPath: /app/cache
+      sizeGB: 1
