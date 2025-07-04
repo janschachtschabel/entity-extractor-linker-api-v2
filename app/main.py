@@ -71,7 +71,7 @@ def create_app() -> FastAPI:
 
     # Add global exception handler for JSON parsing errors
     @app.exception_handler(json.JSONDecodeError)
-    async def json_decode_error_handler(request: Request, exc: json.JSONDecodeError):
+    async def json_decode_error_handler(request: Request, exc: json.JSONDecodeError) -> JSONResponse:
         """Handle JSON decode errors caused by invalid control characters."""
         logger.error(f"JSON decode error: {exc} for request {request.url}")
         return JSONResponse(
@@ -89,7 +89,7 @@ def create_app() -> FastAPI:
         )
 
     @app.exception_handler(RequestValidationError)
-    async def validation_exception_handler(request: Request, exc: RequestValidationError):
+    async def validation_exception_handler(request: Request, exc: RequestValidationError) -> JSONResponse:
         """Enhanced validation error handler with better JSON error messages."""
         # Check if this is a JSON decode error
         for error in exc.errors():

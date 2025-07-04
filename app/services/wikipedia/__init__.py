@@ -18,14 +18,10 @@ from .exceptions import (
 from .models import WikiPage
 from .service import WikipediaService
 
-# For backward compatibility, also export the old service
-try:
-    from .service_backup import WikipediaService as LegacyWikipediaService
-except ImportError:
-    LegacyWikipediaService = None
+# Legacy service removed - no longer available
+LegacyWikipediaService = None
 
 __all__ = [
-    "LegacyWikipediaService",
     "WikiPage",
     "WikipediaAPIError",
     "WikipediaAPITimeoutError",
